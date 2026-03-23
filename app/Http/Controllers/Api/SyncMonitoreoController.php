@@ -85,6 +85,15 @@ class SyncMonitoreoController extends Controller
                     'equipo_nivel_id' => $data['equipo_nivel_id'] ?? null,
                     'tipo_pozo' => $data['tipo_pozo'] ?? null,
                     'fecha_hora_nivel' => $fechaHoraNivel,
+                    'temperatura' => $data['temperatura'] ?? null,
+                    'ph' => $data['ph'] ?? null,
+                    'conductividad' => $data['conductividad'] ?? null,
+                    'oxigeno' => $data['oxigeno'] ?? null,
+                    'turbiedad' => $data['turbiedad'] ?? null,
+                    'profundidad' => $data['profundidad'] ?? null,
+                    'nivel' => $data['nivel'] ?? null,
+                    'latitud' => $data['latitud'] ?? null,
+                    'longitud' => $data['longitud'] ?? null,
                 ]);
 
                 // 2. Insert Parameters (Detalles) batch
@@ -110,6 +119,7 @@ class SyncMonitoreoController extends Controller
                 if (!empty($data['foto_path'])) {
                     $path = $this->imageService->storeBase64Image($data['foto_path'], $monitoreo, 'general');
                     if ($path) {
+                        $monitoreo->foto_path = $path;
                         $fotosToInsert[] = [
                             'monitoreo_id' => $monitoreo->id,
                             'tipo' => 'general',
@@ -122,6 +132,7 @@ class SyncMonitoreoController extends Controller
                 if (!empty($data['foto_multiparametro'])) {
                     $path = $this->imageService->storeBase64Image($data['foto_multiparametro'], $monitoreo, 'multiparametro');
                     if ($path) {
+                        $monitoreo->foto_multiparametro = $path;
                         $fotosToInsert[] = [
                             'monitoreo_id' => $monitoreo->id,
                             'tipo' => 'multiparametro',
@@ -134,6 +145,7 @@ class SyncMonitoreoController extends Controller
                 if (!empty($data['foto_turbiedad'])) {
                     $path = $this->imageService->storeBase64Image($data['foto_turbiedad'], $monitoreo, 'turbiedad');
                     if ($path) {
+                        $monitoreo->foto_turbiedad = $path;
                         $fotosToInsert[] = [
                             'monitoreo_id' => $monitoreo->id,
                             'tipo' => 'turbiedad',
@@ -146,6 +158,7 @@ class SyncMonitoreoController extends Controller
 
                 if (count($fotosToInsert) > 0) {
                     MonitoreoFoto::insert($fotosToInsert);
+                    $monitoreo->save();
                 }
 
                 DB::commit();

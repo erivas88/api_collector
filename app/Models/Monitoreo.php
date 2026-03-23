@@ -29,6 +29,18 @@ class Monitoreo extends Model
         'equipo_nivel_id',
         'tipo_pozo',
         'fecha_hora_nivel',
+        'temperatura',
+        'ph',
+        'conductividad',
+        'oxigeno',
+        'turbiedad',
+        'profundidad',
+        'nivel',
+        'latitud',
+        'longitud',
+        'foto_path',
+        'foto_multiparametro',
+        'foto_turbiedad',
     ];
 
     protected $casts = [
@@ -38,6 +50,15 @@ class Monitoreo extends Model
         'hidroquimico' => 'boolean',
         'isotopico' => 'boolean',
         'is_draft' => 'boolean',
+        'temperatura' => 'double',
+        'ph' => 'double',
+        'conductividad' => 'double',
+        'oxigeno' => 'double',
+        'turbiedad' => 'double',
+        'profundidad' => 'double',
+        'nivel' => 'double',
+        'latitud' => 'double',
+        'longitud' => 'double',
     ];
 
     public function detalles()

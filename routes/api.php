@@ -10,7 +10,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/sync/monitoreos', [SyncMonitoreoController::class, 'sync']);
+
 
 Route::middleware('auth.basic.legacy')->group(function () {
     Route::get('/parametros', [CollectorController::class, 'getParametros']);
@@ -20,4 +20,5 @@ Route::middleware('auth.basic.legacy')->group(function () {
     Route::get('/usuarios', [CollectorController::class, 'getUsuarios']);
     Route::get('/metodos', [CollectorController::class, 'getMetodos']);
     Route::get('/matriz_aguas', [CollectorController::class, 'getMatrizAguas']);
+    Route::post('/sync/monitoreos', [SyncMonitoreoController::class, 'sync']);
 });
